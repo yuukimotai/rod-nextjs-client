@@ -65,7 +65,7 @@ const RegisterForm =() => {
           </div>
         </div>
         <input type="hidden" name="redirectTo" value={callbackUrl} />
-        <Button className="mt-4 w-full">
+        <Button className="mt-4 w-full bg-cyan-300 hover:bg-cyan-400">
           登録 <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
         </Button>
         {/* <div className="flex h-8 items-end space-x-1">
