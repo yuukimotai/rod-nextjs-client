@@ -5,7 +5,7 @@ class UnRegisterUseCase {
 
   async execute(jwt: string , password: string): Promise<{ status: number}> {
     // Repositoryに処理を委譲
-    return await this.authRepo.closeAccount(jwt, password);
+    return await this.authRepo.unregister(jwt, password);
   }
 }
 

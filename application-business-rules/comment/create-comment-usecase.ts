@@ -1,5 +1,4 @@
 import type { CommentRepostitory } from '../../enterprise-business-rules/repositories/comment-repository';
-
 class CreateCommentUseCase {
     constructor(private commentRepo: CommentRepostitory){}
 
