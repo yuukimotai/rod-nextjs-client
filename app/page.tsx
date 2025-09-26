@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
+
 import Image from "next/image";
 import Header from "./ui/header";
+
+export const metadata: Metadata = {
+  title: "IgnIdea",
+  description: "アイデア壁打ちとシェアのプラットフォーム",
+};
 
 export default function Home() {
   return (

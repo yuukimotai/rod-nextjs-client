@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+"use client";
+
+import { CookiesProvider } from "react-cookie";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,23 +14,21 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "IgnIdea",
-  description: "アイデア壁打ちとシェアのプラットフォーム",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+              <CookiesProvider>
+                {children}
+              </CookiesProvider>
+          </body>
+        </html>
+    </>
   );
 }
