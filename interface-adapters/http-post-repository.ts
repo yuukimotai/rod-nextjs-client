@@ -1,7 +1,7 @@
 import type { PostRepository } from '../enterprise-business-rules/repositories/post-repository';
 import type { AxiosResponse } from "axios";
 
-import httpClient from '../../infrastructure/adapter/httpClient.ts';
+import httpClient from '../frameworks-drivers/http-client';
 
 class HttpPostRepository implements PostRepository {
     async createPost(jwt: string, title: string, content: string, priority_emoji: string): Promise<AxiosResponse | undefined> {

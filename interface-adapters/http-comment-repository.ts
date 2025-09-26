@@ -1,7 +1,7 @@
 import type { CommentRepository } from '../enterprise-business-rules/repositories/comment-repository';
 import type { AxiosResponse } from "axios";
 
-import httpClient from '../../infrastructure/adapter/httpClient.ts';
+import httpClient from '../frameworks-drivers/http-client';
 
 class HttpCommentRepository implements CommentRepository {
     async createComment(jwt: string, title: string, content: string, priority_emoji: string): Promise<AxiosResponse | undefined> {

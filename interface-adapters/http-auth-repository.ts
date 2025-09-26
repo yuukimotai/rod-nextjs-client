@@ -1,6 +1,6 @@
 import type { AuthRepository } from '../enterprise-business-rules/repositories/auth-repository';
 
-import httpClient from '../../infrastructure/adapter/httpClient.ts';
+import httpClient from '../frameworks-drivers/http-client';
 
 class HttpAuthRepository implements AuthRepository {
     async register(email: string, password: string, confirm_password: string): Promise<{status: number, jwt: string}> {
