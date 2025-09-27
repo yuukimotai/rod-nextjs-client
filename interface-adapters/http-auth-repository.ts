@@ -35,9 +35,8 @@ class HttpAuthRepository implements AuthRepository {
     }
     async unregister(jwt: string, password: string): Promise<{ status: number}> {
         try {
-                const response = await httpClient.post('/close-account',
-                    { headers: { Authorization: `Bearer ${jwt}`, "Content-Type": "application/json"},
-                      password: password});
+                const response = await httpClient.post('/close-account', { password: password },
+                    { headers: { Authorization: `Bearer ${jwt}`, "Content-Type": "application/json"}});
                 console.log(response)
                 return { status: response.status };
         } catch (error) {

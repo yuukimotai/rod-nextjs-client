@@ -10,7 +10,7 @@ import {
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
 import  AuthRepository from '../../interface-adapters/http-auth-repository';
-import LoginUsecase from '../../application-business-rules/auth/login-usecase';
+import UnregisterUsecase from '../../application-business-rules/auth/unregister-usecase';
 import User from '../../enterprise-business-rules/entities/user';
 
 export default function LoginForm() {
@@ -27,16 +27,16 @@ export default function LoginForm() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); 
         const authRepository = new AuthRepository();
-        const loginUsecase = new LoginUsecase(authRepository);
+        const unregisterUsecase = new UnregisterUsecase(authRepository);
         const user = new User();
         //念のための型チェック
         user.email = email;
         user.password = password;
-        const result = await loginUsecase.execute(user.email, user.password);
+        const result = await unregisterUsecase.execute(cookie.ignidea_bearer, user.password);
         if (result.status === 200) {
             // Postへのナビゲートとアラートメッセージ忘れず
-            setCookie("ignidea_bearer", result.jwt)
-            alert('ログインしました');
+            setCookie("ignidea_bearer", "")
+            alert('退会しました');
         }
     };
 
@@ -45,29 +45,9 @@ export default function LoginForm() {
       <form className="space-y-3" onSubmit={handleSubmit}>
         <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
           <h1 className='mb-3 text-2xl'>
-              ログインして下さい
+              退会フォーム
           </h1>
           <div className="w-full">
-            <div>
-              <label
-                className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-                htmlFor="email"
-              >
-                Email
-              </label>
-              <div className="relative">
-                <input
-                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                  id="email"
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email address"
-                  required
-                  onChange={inputEmailChange}
-                />
-                <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-              </div>
-            </div>
             <div className="mt-4">
               <label
                 className="mb-3 mt-5 block text-xs font-medium text-gray-900"
@@ -91,7 +71,7 @@ export default function LoginForm() {
             </div>
           </div>
           <Button className="mt-4 w-full bg-cyan-300 hover:bg-cyan-400">
-            ログイン <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+            退会 <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
           </Button>
         </div>
       </form>

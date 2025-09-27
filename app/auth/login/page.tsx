@@ -1,7 +1,7 @@
 import LoginForm from '@/app/ui/login-form';
 import { Suspense } from 'react';
-import Header from '../ui/header';
-import Footer from '../ui/footer';
+import Header from '../../ui/header';
+import Footer from '../../ui/footer';
  
 const LoginPage = () => {
   return (

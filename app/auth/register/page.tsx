@@ -1,7 +1,7 @@
 import RegisterForm from '@/app/ui/register-form';
 import { Suspense } from 'react';
-import Header from '../ui/header';
-import Footer from '../ui/footer';
+import Header from '../../ui/header';
+import Footer from '../../ui/footer';
  
 const RegisterPage = () => {
   return (
