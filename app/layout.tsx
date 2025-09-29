@@ -1,6 +1,5 @@
 "use client";
 
-import { CookiesProvider } from "react-cookie";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -24,9 +23,7 @@ export default function RootLayout({
         <html lang="en">
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-              <CookiesProvider>
                 {children}
-              </CookiesProvider>
           </body>
         </html>
     </>

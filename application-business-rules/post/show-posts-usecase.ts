@@ -1,8 +1,8 @@
 import type { AxiosResponse } from 'axios';
-import type { PostRepostitory } from '../../enterprise-business-rules/repositories/post-repository';
+import type { PostRepository } from '@/enterprise-business-rules/repositories/post-repository';
 
 class ShowPostsUseCase {
-    constructor(private postRepo: PostRepostitory){}
+    constructor(private postRepo: PostRepository){}
 
     async execute(jwt: string): Promise<AxiosResponse | undefined> {
         const response = await this.postRepo.showPosts(jwt);

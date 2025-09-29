@@ -1,3 +1,4 @@
+'use server'
 import type { PostRepository } from '../enterprise-business-rules/repositories/post-repository';
 import type { AxiosResponse } from "axios";
 
@@ -17,7 +18,7 @@ class HttpPostRepository implements PostRepository {
     }
     async showPosts(jwt: string): Promise<AxiosResponse | undefined> {
         try {
-            return await httpClient.get('/posts', {headers: {"Authorization": `Bearer ${jwt}`}});
+            return await httpClient.get('/posts', {headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`}});
         } catch(error) {
             console.error(`${error}: サーバーに接続できませんでした`);
         }

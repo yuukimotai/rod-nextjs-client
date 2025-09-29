@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { useRouter } from 'next/navigation';
 import {
   AtSymbolIcon,
   KeyIcon,
@@ -9,12 +9,11 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
-import  AuthRepository from '../../interface-adapters/http-auth-repository';
-import LoginUsecase from '../../application-business-rules/auth/login-usecase';
 import User from '../../enterprise-business-rules/entities/user';
+import LoginAction from '@/frameworks-drivers/auth/login-action';
 
 export default function LoginForm() {
-    const [cookie, setCookie] = useCookies(["ignidea_bearer"]);
+    const router = useRouter();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
@@ -26,17 +25,16 @@ export default function LoginForm() {
     };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); 
-        const authRepository = new AuthRepository();
-        const loginUsecase = new LoginUsecase(authRepository);
+
         const user = new User();
         //念のための型チェック
         user.email = email;
         user.password = password;
-        const result = await loginUsecase.execute(user.email, user.password);
+        const result = await LoginAction(user.email, user.password);
         if (result.status === 200) {
             // Postへのナビゲートとアラートメッセージ忘れず
-            setCookie("ignidea_bearer", result.jwt)
             alert('ログインしました');
+            //router.push('/')
         }
     };
 

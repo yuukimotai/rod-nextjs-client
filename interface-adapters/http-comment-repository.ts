@@ -1,3 +1,4 @@
+'use server'
 import type { CommentRepository } from '../enterprise-business-rules/repositories/comment-repository';
 import type { AxiosResponse } from "axios";
 

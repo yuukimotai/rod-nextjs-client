@@ -1,5 +1,5 @@
+'use server'
 import type { AuthRepository } from '../enterprise-business-rules/repositories/auth-repository';
-
 import httpClient from '../frameworks-drivers/http-client';
 
 class HttpAuthRepository implements AuthRepository {
@@ -7,6 +7,7 @@ class HttpAuthRepository implements AuthRepository {
         try {
             const response = await httpClient.post('/create-account', { email, password, confirm_password });
             const token = response.headers['authorization'];
+
             return { status: response.status, jwt: token };
         } catch (error) {
             console.error(`${error}: サーバーに接続できませんでした`);
@@ -17,6 +18,7 @@ class HttpAuthRepository implements AuthRepository {
         try {
             const response = await httpClient.post('/login', { email, password });
             const token = response.headers['authorization'];
+
             return { status: response.status, jwt: token };
         } catch (error) {
             console.error(`${error}: サーバーに接続できませんでした`);
@@ -27,6 +29,7 @@ class HttpAuthRepository implements AuthRepository {
         try {
             const response = await httpClient.post('/logout',
                 { headers:{"Content-Type": "application/json", Authorization: `Bearer ${ jwt }`,}});
+            
             return { status: response.status};
         } catch (error) {
             console.error(`${error}: サーバーに接続できませんでした`);

@@ -1,23 +1,20 @@
 "use client";
 import React from 'react';
-import { useCookies } from 'react-cookie';
 import { useRouter } from "next/navigation";
 import  AuthRepository from '../../interface-adapters/http-auth-repository';
 import LogoutUsecase from '../../application-business-rules/auth/logout-usecase';
 
 const LogoutButton = () => {
         const router = useRouter();
-        const [cookie, setCookie, removeCookie] = useCookies(["ignidea_bearer"]);
         const handleSubmit = async () => {
             const authRepository = new AuthRepository();
             const logoutUsecase = new LogoutUsecase(authRepository);
-            const result = await logoutUsecase.execute(cookie.ignidea_bearer);
-            console.log(result);
-            if (result.status === 200) {
-                removeCookie("ignidea_bearer");
-                alert('ログアウトしました');
-                router.push("/");
-            }
+            // console.log(result);
+            // if (result.status === 200) {
+            //     removeCookie("ignidea_bearer");
+            //     alert('ログアウトしました');
+            //     router.push("/");
+            // }
         }
 
     return (
