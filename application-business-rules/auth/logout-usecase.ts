@@ -1,10 +1,16 @@
+import { AxiosResponse } from 'axios';
 import type { AuthRepository } from '../../enterprise-business-rules/repositories/auth-repository';
 
 class LogoutUseCase {
   constructor(private authRepo: AuthRepository) {}
 
-  async execute(jwt: string): Promise<{ status: number; }> {
-    return await this.authRepo.logout(jwt);
+  async execute(jwt: string): Promise<AxiosResponse | undefined> {
+    const response = await this.authRepo.logout(jwt);
+    if (response) {
+      return response;
+    } else {
+      return undefined;
+    }
   }
 }
 

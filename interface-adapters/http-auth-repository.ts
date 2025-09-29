@@ -1,4 +1,5 @@
 'use server'
+import { AxiosResponse } from 'axios';
 import type { AuthRepository } from '../enterprise-business-rules/repositories/auth-repository';
 import httpClient from '../frameworks-drivers/http-client';
 
@@ -25,15 +26,15 @@ class HttpAuthRepository implements AuthRepository {
             return { status: 500, jwt: '' };
         }   
     }
-    async logout(jwt: string): Promise<{ status: number}> {
+    async logout(jwt: string): Promise<AxiosResponse | undefined> {
         try {
             const response = await httpClient.post('/logout',
                 { headers:{"Content-Type": "application/json", Authorization: `Bearer ${ jwt }`,}});
             
-            return { status: response.status};
+            return response;
         } catch (error) {
             console.error(`${error}: サーバーに接続できませんでした`);
-            return { status: 500};
+            return undefined;
         }   
     }
     async unregister(jwt: string, password: string): Promise<{ status: number}> {

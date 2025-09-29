@@ -1,12 +1,9 @@
 import UnregisterForm from '@/app/ui/unregister-form';
 import { Suspense } from 'react';
-import Header from '../../ui/header';
-import Footer from '../../ui/footer';
  
 const UnregisterPage = () => {
   return (
     <>
-        <Header />
         <main className="flex items-center justify-center md:h-screen">
           <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
             <div className="flex h-20 w-full items-end rounded-lg bg-cyan-300 p-3 md:h-36">
@@ -19,7 +16,6 @@ const UnregisterPage = () => {
             </Suspense>
           </div>
         </main>
-        <Footer />
     </>
   );
 }

@@ -1,7 +1,10 @@
-"use client";
+"use server";
 
+import { cookies } from 'next/headers'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from './ui/header';
+import Footer from './ui/footer';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,17 +16,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = cookies();
+  const jwt = (await cookieStore).get('ignidea_bearer')?.value;
+
   return (
     <>
         <html lang="en">
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                {children}
+              <Header jwtString={jwt} />
+              {children}
+              <Footer />
           </body>
         </html>
     </>

@@ -1,20 +1,16 @@
 "use client";
 import React from 'react';
-import { useRouter } from "next/navigation";
-import  AuthRepository from '../../interface-adapters/http-auth-repository';
-import LogoutUsecase from '../../application-business-rules/auth/logout-usecase';
+import { useRouter, redirect} from "next/navigation";
+import LogoutAction from '@/frameworks-drivers/auth/logout-action';
 
 const LogoutButton = () => {
         const router = useRouter();
         const handleSubmit = async () => {
-            const authRepository = new AuthRepository();
-            const logoutUsecase = new LogoutUsecase(authRepository);
-            // console.log(result);
-            // if (result.status === 200) {
-            //     removeCookie("ignidea_bearer");
-            //     alert('ログアウトしました');
-            //     router.push("/");
-            // }
+            const result = await LogoutAction();
+            if (result.status === 200) {
+                alert('ログアウトしました');
+                redirect("/auth/login");
+            }
         }
 
     return (

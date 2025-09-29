@@ -1,6 +1,4 @@
 import React from 'react';
-import Header from '../../ui/header';
-import Footer from '../../ui/footer';
 import {
   AtSymbolIcon,
   KeyIcon,
@@ -11,7 +9,6 @@ import { Button } from '../../ui/button';
 const PostsPage = () => {
     return (
         <>
-            <Header />
             <h1>Posts Page</h1>
             <form className="space-y-3">
                 <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -59,7 +56,6 @@ const PostsPage = () => {
                     </Button>
                 </div>
             </form>
-            <Footer />
         </>
     );
 }

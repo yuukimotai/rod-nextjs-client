@@ -1,8 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Header from '../ui/header';
-import Footer from '../ui/footer';
+import { useRouter, redirect } from 'next/navigation';
+
 import Post from '@/enterprise-business-rules/entities/post';
 import FetchAction from '@/frameworks-drivers/posts/fetch-action';
 import {
@@ -21,15 +20,14 @@ const PostsPage = () => {
 
     const fetchPosts = async () => {
         const result = await FetchAction();
-        console.log(result)
-        if (result) {
+        if (result.status === 200) {
             setPosts(result.data as Post[]);
             alert("自分の投稿を読み込みました");
         }
         if (result?.status !==200) {
             console.log(result?.status)
             alert("投稿の読み込みに失敗しました。ログインしてください");
-            router.push('/');
+            redirect('/auth/login');
         }
     }
     const selectPost = (post: Post) => {
@@ -43,7 +41,6 @@ const PostsPage = () => {
     }, [selectedPost]);
     return (
         <>
-            <Header />
             <h1>Posts Page</h1>
             <ul className="flex flex-row max-h-96">
                 <li className="w-3/12 overflow-y-scroll">
@@ -60,7 +57,6 @@ const PostsPage = () => {
                     {/* {viewDetail ? (<PostDetail post={selectedPost}/>) : (<div>投稿を選択してください</div>)} */}
                 </li>
             </ul>
-            <Footer />
         </>
     );
 }
