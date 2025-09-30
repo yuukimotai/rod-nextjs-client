@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { redirect } from 'next/navigation';
 import {
   AtSymbolIcon,
   KeyIcon,
@@ -9,15 +9,16 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
-import  AuthRepository from '../../interface-adapters/http-auth-repository';
-import UnregisterUsecase from '../../application-business-rules/auth/unregister-usecase';
+import { useAuth } from '@/app/ui/auth-provider';
+import UnRegister from '@/frameworks-drivers/auth/unregister-action';
 import User from '../../enterprise-business-rules/entities/user';
 
-export default function LoginForm() {
-    const [cookie, setCookie] = useCookies(["ignidea_bearer"]);
+export default function UnRegisterForm() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-
+    const { jwtString } = useAuth();
+    let result = {status: 500, jwt: ""}
+    
     const inputEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
@@ -26,17 +27,20 @@ export default function LoginForm() {
     };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); 
-        const authRepository = new AuthRepository();
-        const unregisterUsecase = new UnregisterUsecase(authRepository);
         const user = new User();
         //念のための型チェック
         user.email = email;
         user.password = password;
-        const result = await unregisterUsecase.execute(cookie.ignidea_bearer, user.password);
+        if (jwtString) {
+           result = await UnRegister(jwtString, user.password);
+        } else {
+          alert("認証されていません。ログインしてください")
+          redirect('/auth/login')
+        }
         if (result.status === 200) {
             // Postへのナビゲートとアラートメッセージ忘れず
-            setCookie("ignidea_bearer", "")
             alert('退会しました');
+            redirect('/auth/login');
         }
     };
 

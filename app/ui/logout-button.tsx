@@ -1,4 +1,5 @@
 "use client";
+
 import React from 'react';
 import { useRouter, redirect} from "next/navigation";
 import LogoutAction from '@/frameworks-drivers/auth/logout-action';

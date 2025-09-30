@@ -3,6 +3,7 @@
 import { cookies } from 'next/headers'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from './ui/auth-provider';
 import Header from './ui/header';
 import Footer from './ui/footer';
 
@@ -23,14 +24,16 @@ export default async function RootLayout({
 }>) {
   const cookieStore = cookies();
   const jwt = (await cookieStore).get('ignidea_bearer')?.value;
-
+  
   return (
     <>
         <html lang="en">
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
               <Header jwtString={jwt} />
-              {children}
+              <AuthProvider jwtString={jwt}> 
+                {children}
+              </AuthProvider> 
               <Footer />
           </body>
         </html>

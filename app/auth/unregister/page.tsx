@@ -1,6 +1,7 @@
+
 import UnregisterForm from '@/app/ui/unregister-form';
 import { Suspense } from 'react';
- 
+
 const UnregisterPage = () => {
   return (
     <>

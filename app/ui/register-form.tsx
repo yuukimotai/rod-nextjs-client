@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { useRouter, redirect } from 'next/navigation';
+import User from '@/enterprise-business-rules/entities/user';
 import {
   AtSymbolIcon,
   KeyIcon,
@@ -9,14 +10,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
-import  AuthRepository from '../../interface-adapters/http-auth-repository';
-import RegisterUsecase from '../../application-business-rules/auth/register-usecase';
-import User from '../../enterprise-business-rules/entities/user';
-import { useRouter } from 'next/navigation';
+import RegisterAction from '@/frameworks-drivers/auth/register-action'
 
 const RegisterForm =() => {
     const router = useRouter();
-    const [cookie, setCookie] = useCookies(["ignidea_bearer"]);
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirm, setConfirm] = useState<string>("");
@@ -32,19 +29,16 @@ const RegisterForm =() => {
     };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); 
-        const authRepository = new AuthRepository();
-        const registerUsecase = new RegisterUsecase(authRepository);
         const user = new User();
         //念のための型チェック
         user.email = email;
         user.password = password;
         user.confirmation_password = confirm;
-        const result = await registerUsecase.execute(user.email, user.password, user.confirmation_password);
+        const result = await RegisterAction(user.email, user.password, user.confirmation_password);
         if (result.status === 200) {
             // Postへのナビゲートとアラートメッセージ忘れず
-            setCookie("ignidea_bearer", result.jwt)
             alert('登録成功しました');
-            router.push("/");
+            redirect("/");
         }
     };
 
