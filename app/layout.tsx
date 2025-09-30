@@ -29,7 +29,7 @@ export default async function RootLayout({
     <>
         <html lang="en">
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+            className={`${geistSans.variable} ${geistMono.variable} antialiased gray-900`}>
               <Header jwtString={jwt} />
               <AuthProvider jwtString={jwt}> 
                 {children}
