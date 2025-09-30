@@ -1,7 +1,7 @@
-import type { PostRepostitory } from '../../enterprise-business-rules/repositories/post-repository';
+import type { PostRepository } from '@/enterprise-business-rules/repositories/post-repository';
 
 class CreatePostUseCase {
-    constructor(private postRepo: PostRepostitory){}
+    constructor(private postRepo: PostRepository){}
 
     async execute(jwt: string, title: string, content: string, priority_emoji: string): Promise<{status: number; title: string}> {
         const response = await this.postRepo.createPost(jwt, title, content, priority_emoji);

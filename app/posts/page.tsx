@@ -4,13 +4,7 @@ import { useRouter, redirect } from 'next/navigation';
 
 import Post from '@/enterprise-business-rules/entities/post';
 import FetchAction from '@/frameworks-drivers/posts/fetch-action';
-import {
-  AtSymbolIcon,
-  KeyIcon,
-  ExclamationCircleIcon,
-} from '@heroicons/react/24/outline';
-import { ArrowRightIcon } from '@heroicons/react/20/solid';
-import { Button } from '../ui/button';
+import PostDetail from '@/app/posts/post-detail';
 
 const PostsPage = () => {
     const router = useRouter();
@@ -54,7 +48,7 @@ const PostsPage = () => {
                     </ul>
                 </li>
                 <li className="w-9/12">
-                    {/* {viewDetail ? (<PostDetail post={selectedPost}/>) : (<div>投稿を選択してください</div>)} */}
+                    {viewDetail && (<PostDetail />)}
                 </li>
             </ul>
         </>

@@ -1,14 +1,34 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
+import { redirect } from 'next/navigation';
 import {
     PencilIcon
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '../../ui/button';
+import CreateAction from '@/frameworks-drivers/posts/create-action';
 const PostsPage = () => {
+    const [title, setTitle] = useState<string>("");
+    const [content, setContent] = useState<string>("");
+    const inputTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.target.value);
+    }
+    const inputContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setContent(e.target.value);
+    }
+    const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); 
+        const result = await CreateAction(title, content);
+        if (result.status === 201) {
+            alert('投稿を作成しました');
+            redirect("/posts");
+        }
+    }
+
     return (
         <>
             <main className='flex justify-center p-20'>
-                <form className="space-y-3">
+                <form className="space-y-3" onSubmit={handleCreate}>
                     <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
                         <h1 className='mb-3 text-2xl'>
                             投稿作成
@@ -28,7 +48,9 @@ const PostsPage = () => {
                                     name="title"
                                     placeholder="タイトルを入力"
                                     required
-                                    minLength={6}
+                                    minLength={5}
+                                    onChange={inputTitleChange}
+                                    value={title}
                                     />
                                     <PencilIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                                 </div>
@@ -42,8 +64,9 @@ const PostsPage = () => {
                                 <div className="relative">
                                     <textarea
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                                        id="message" name="message" rows={5} cols={50}
+                                        id="content" name="content" rows={5} cols={50}
                                         placeholder="内容を入力"
+                                        onChange={inputContentChange} value={content}
                                         required/>
                                     <PencilIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                                 </div>
