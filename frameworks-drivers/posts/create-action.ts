@@ -1,8 +1,6 @@
 'use server';
 
-import {AxiosError, AxiosResponse} from 'axios';
 import { cookies } from 'next/headers';
-import Post from '@/enterprise-business-rules/entities/post'
 import  PostRepository from '@/interface-adapters/http-post-repository';
 import CreatePostUseCase from '@/application-business-rules/post/create-post-usecase';
 

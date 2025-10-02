@@ -5,10 +5,8 @@ import { useRouter, redirect } from 'next/navigation';
 import Post from '@/enterprise-business-rules/entities/post';
 import FetchAction from '@/frameworks-drivers/posts/fetch-action';
 import PostDetail from '@/app/posts/post-detail';
-import { title } from 'process';
 
 const PostsPage = () => {
-    const router = useRouter();
     const [posts, setPosts] = useState<Post[]>([]);
     const [selectedPost, setSelectedPost] = useState<Post>();
     const [viewDetail, setViewDetail] = useState<boolean>(false);
@@ -17,16 +15,13 @@ const PostsPage = () => {
         const result = await FetchAction();
         if (result.status === 200) {
             setPosts(result.data as Post[]);
-            alert("自分の投稿を読み込みました");
         }
         if (result?.status !==200) {
-            console.log(result?.status)
             alert("投稿の読み込みに失敗しました。ログインしてください");
             redirect('/auth/login');
         }
     }
     const selectPost = (post: Post) => {
-        console.log(post)
         setViewDetail(true);
         setSelectedPost(post);
     }
@@ -51,7 +46,7 @@ const PostsPage = () => {
                         </ul>
                     </li>
                     <li className="w-9/12 p-6">
-                        {viewDetail && selectedPost && (<PostDetail post={selectedPost} />)}
+                        {viewDetail && selectedPost && (<PostDetail key={selectedPost.id} post={selectedPost} />)}
                     </li>
                 </ul>
             </main>

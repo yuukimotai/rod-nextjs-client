@@ -11,7 +11,7 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
 import { useAuth } from '@/app/ui/auth-provider';
 import UnRegister from '@/frameworks-drivers/auth/unregister-action';
-import User from '../../enterprise-business-rules/entities/user';
+import User from '@/enterprise-business-rules/entities/user';
 
 export default function UnRegisterForm() {
     const [email, setEmail] = useState<string>("");
