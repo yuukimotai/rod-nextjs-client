@@ -16,7 +16,7 @@ const Header = ({ jwtString }: Props) => {
 
     return (
         <>
-            <header className="flex h-16 items-center justify-between border-b border-cyan-300 px-4">
+            <header className="flex h-16 items-center justify-between bg-cyan-300 px-4 text-white">
                 <h1 className="text-lg font-medium">IgnIdea</h1>
                 {jwt !== undefined && <LogoutButton />}
             </header>

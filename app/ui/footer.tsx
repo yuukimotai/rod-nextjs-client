@@ -3,8 +3,8 @@ import React from 'react';
 const Footer =()=>{
     return (
         <>
-            <footer className="flex h-16 items-center justify-center border-t border-cyan-300 px-4">
-                <p className="text-sm text-gray-500">© 2025 IgnIdea. All rights reserved.</p>
+            <footer className="absolute bottom-0 w-full p-4 text-center bg-cyan-300 text-white">
+                <p className="text-sm">© 2025 IgnIdea. All rights reserved.</p>
             </footer>
         </>
     );

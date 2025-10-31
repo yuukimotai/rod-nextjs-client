@@ -34,7 +34,7 @@ export default function LoginForm() {
         if (result.status === 200) {
             // Postへのナビゲートとアラートメッセージ忘れず
             alert('ログインしました');
-            router.push('/')
+            router.push('/dashboard');
         }
     };
 
