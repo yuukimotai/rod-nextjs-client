@@ -9,8 +9,11 @@ const LoginAction = async (email: string, password: string): Promise<{status: nu
     const authRepository = new AuthRepository();
     const loginUseCase = new LoginUsecase(authRepository);
     const result = await loginUseCase.execute(email, password); 
-  
-    (await cookieStore).set('ignidea_bearer', result.jwt, { httpOnly: true, path: '/' });
+    if (result.status !== 200) return {status: result.status, jwt: "認証できませんでした"};
+    if (result.status === 200) {
+        (await cookieStore).set('ignidea_bearer', result.jwt, { httpOnly: true, path: '/' });
+        (await cookieStore).set('ignidea_isLoggedIn', 'true');
+    }
     return {status: result.status, jwt: result.jwt}
 }
 

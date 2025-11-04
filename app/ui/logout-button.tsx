@@ -5,7 +5,6 @@ import { useRouter, redirect} from "next/navigation";
 import LogoutAction from '@/frameworks-drivers/auth/logout-action';
 
 const LogoutButton = () => {
-        const router = useRouter();
         const handleSubmit = async () => {
             const result = await LogoutAction();
             if (result.status === 200) {
