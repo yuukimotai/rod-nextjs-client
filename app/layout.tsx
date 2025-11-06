@@ -1,5 +1,3 @@
-
-import { cookies } from 'next/headers';
 import { Provider } from 'jotai';
 
 import { Geist, Geist_Mono } from "next/font/google";
@@ -23,8 +21,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = cookies();
-  const jwt = (await cookieStore).get('ignidea_bearer')?.value;
 
   return (
     <>
@@ -32,7 +28,7 @@ export default async function RootLayout({
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
               <Provider>
-              <Header jwtString={ jwt ?? "" } />
+              <Header/>
                 {children}
               <Footer />
               </Provider>

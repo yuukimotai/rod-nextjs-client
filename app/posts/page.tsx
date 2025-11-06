@@ -25,6 +25,10 @@ const PostsPage = () => {
         setViewDetail(true);
         setSelectedPost(post);
     }
+    const router = useRouter();
+    const handleCreatePost = () => {
+        router.push("/posts/create");
+    }
     useEffect(() => {
         fetchPosts();
     }, []);
@@ -32,8 +36,13 @@ const PostsPage = () => {
     }, [selectedPost]);
     return (
         <>
-            <main className='min-h-96'>
-                <div className='p-6'>投稿一覧</div>
+            <main className='min-h-96 w-4/5 mx-auto'>
+                <div className="flex justify-between mx-auto p-8">
+                    <h3 className="text-3xl font-bold mb-6">アイデア一覧</h3>
+                    <a onClick={handleCreatePost} className="flex h-10 items-center rounded-lg bg-cyan-300 px-4 text-sm font-medium text-white transition-colors hover:bg-cyan-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400 active:bg-cyan-400 aria-disabled:cursor-not-allowed aria-disabled:opacity-50">
+                        新規作成
+                    </a>
+                </div>
                 <ul className="flex flex-row">
                     <li className="w-3/12 p-6 overflow-y-scroll">
                         <ul>

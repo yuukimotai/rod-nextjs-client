@@ -41,6 +41,8 @@ export default function UnRegisterForm() {
             // Postへのナビゲートとアラートメッセージ忘れず
             alert('退会しました');
             redirect('/auth/login');
+        } else {
+            alert('退会に失敗しました。もう一度お試しください。');
         }
     };
 

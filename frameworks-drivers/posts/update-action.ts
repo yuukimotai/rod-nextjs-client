@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import  PostRepository from '@/interface-adapters/http-post-repository';
 import UpdatePostUseCase from '@/application-business-rules/post/update-post-usecase';
 
-const UpdateAction = async (postId: number, title: string, content: string): Promise<{status: number, title: string}> => {
+const UpdateAction = async (postId: number, title: string, content: string, isPublic: boolean): Promise<{status: number, title: string}> => {
     const cookieStore = cookies();
     const postRepository = new PostRepository();
     const updatePostUseCase = new UpdatePostUseCase(postRepository);
@@ -12,7 +12,7 @@ const UpdateAction = async (postId: number, title: string, content: string): Pro
     let result = {status: 500, title: ""}
     
     if (jwt) {
-        result = await updatePostUseCase.execute(jwt.value, postId, title, content, "");
+        result = await updatePostUseCase.execute(jwt.value, postId, title, content, "", isPublic);
     }
     if (result.status === 200) {
         return {status: result.status, title: result.title }

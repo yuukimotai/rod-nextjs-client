@@ -35,6 +35,8 @@ export default function LoginForm() {
             // Postへのナビゲートとアラートメッセージ忘れず
             alert('ログインしました');
             router.push('/dashboard');
+        } else {
+            alert('ログインに失敗しました。もう一度お試しください。');
         }
     };
 

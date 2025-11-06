@@ -10,6 +10,8 @@ const LogoutButton = () => {
             if (result.status === 200) {
                 alert('ログアウトしました');
                 redirect("/auth/login");
+            } else {
+                alert('ログアウトに失敗しました。もう一度お試しください。');
             }
         }
 

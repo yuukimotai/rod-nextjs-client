@@ -38,7 +38,9 @@ const RegisterForm =() => {
         if (result.status === 200) {
             // Postへのナビゲートとアラートメッセージ忘れず
             alert('登録成功しました');
-            redirect("/");
+            redirect("/dashboard");
+        } else {
+            alert('登録に失敗しました。もう一度お試しください。');
         }
     };
 

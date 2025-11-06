@@ -3,8 +3,8 @@ import type { PostRepository } from '@/enterprise-business-rules/repositories/po
 class CreatePostUseCase {
     constructor(private postRepo: PostRepository){}
 
-    async execute(jwt: string, title: string, content: string, priority_emoji: string): Promise<{status: number; title: string}> {
-        const response = await this.postRepo.createPost(jwt, title, content, priority_emoji);
+    async execute(jwt: string, title: string, content: string, priority_emoji: string, is_public: boolean): Promise<{status: number; title: string}> {
+        const response = await this.postRepo.createPost(jwt, title, content, priority_emoji, is_public);
         if (response) {
             return {status: response.status, title: response.data.title}
         } else {

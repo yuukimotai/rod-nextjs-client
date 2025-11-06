@@ -11,6 +11,7 @@ interface Props {
 const PostDetail = ({post}: Props) => {
     const [title, setTitle] = useState<string>(post.title ? post.title : "");
     const [content, setContent] = useState<string>(post.content ? post.content : "");
+    const [isPublic , setIsPublic] = useState<boolean>(post.is_public ? post.is_public : false);
     const inputTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
         post.title = e.target.value;
@@ -18,6 +19,10 @@ const PostDetail = ({post}: Props) => {
     const inputContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
         post.content = e.target.value;
+    }
+    const isPublicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsPublic(e.target.checked);
+        post.is_public = e.target.checked;
     }
 
     return(
@@ -31,6 +36,9 @@ const PostDetail = ({post}: Props) => {
                         <textarea name="content" id="content" className='w-full' value={content} onChange={inputContentChange} ></textarea>
                     </li>
                 </ul>
+                <div className='flex flex-row justify-center'>
+                    <p>公開: </p><input type='checkbox' name="content" id="content" checked={isPublic} onChange={isPublicChange}/>
+                </div>
                 <ul className='flex flex-row justify-end m-1 space-x-2'>
                     <li>
                         <DeletePostButton post={post} />

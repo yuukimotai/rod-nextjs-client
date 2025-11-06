@@ -18,7 +18,7 @@ const LogoutAction = async (): Promise<{ status: number }> =>{
     }
     if (result) {
         (await cookieStore).delete('ignidea_bearer');
-        revalidatePath('/', 'layout');
+        (await cookieStore).set('ignidea_isLoggedIn', 'false');
         return {status: result.status}
     } else {
         return { status: 500 }
