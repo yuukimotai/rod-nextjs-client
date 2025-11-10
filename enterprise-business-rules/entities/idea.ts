@@ -1,4 +1,4 @@
-class Post {
+class Idea {
     id: number | undefined;
     title: string | undefined;
     content: string | undefined;
@@ -6,4 +6,4 @@ class Post {
     priority_emoji: string | undefined;
 }
 
-export default Post;
+export default Idea;

@@ -1,24 +1,24 @@
 import React from "react";
 import { ArrowPathIcon } from '@heroicons/react/20/solid';
 import { Button } from '../../ui/button';
-import Post from "@/enterprise-business-rules/entities/post";
-import DeleteAction from '@/frameworks-drivers/posts/delete-action';
+import Idea from "@/enterprise-business-rules/entities/idea";
+import DeleteAction from '@/frameworks-drivers/ideas/delete-action';
 
 interface Props {
-    post: Post;
+    idea: Idea;
 }
 
-const DeletePostButton = ({post}: Props) => {
-    const postId = post.id ? post.id : -1;
+const DeleteIdeaButton = ({idea}: Props) => {
+    const ideaId = idea.id ? idea.id : -1;
     let result = {status: 500, title: ""}
     const handleDelete = async () => {
-        if (postId === -1) {
-            alert("Post ID が無効です");
+        if (ideaId === -1) {
+            alert("Idea ID が無効です");
             return;
         }
-        result = await DeleteAction(postId);
+        result = await DeleteAction(ideaId);
         if (result.status === 204) {
-            alert(`Post ID ${post.id} 削除しました`);
+            alert(`Idea ID ${idea.id} 削除しました`);
             location.reload();
         }
     }
@@ -31,4 +31,4 @@ const DeletePostButton = ({post}: Props) => {
     )
 }
 
-export default DeletePostButton;
+export default DeleteIdeaButton;

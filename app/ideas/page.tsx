@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, redirect } from 'next/navigation';
 
-import Post from '@/enterprise-business-rules/entities/post';
-import FetchAction from '@/frameworks-drivers/posts/fetch-action';
-import PostDetail from '@/app/posts/post-detail';
+import Post from '@/enterprise-business-rules/entities/idea';
+import FetchAction from '@/frameworks-drivers/ideas/fetch-action';
+import IdeaDetail from '@/app/ideas/idea-detail';
 
 const PostsPage = () => {
     const [posts, setPosts] = useState<Post[]>([]);
-    const [selectedPost, setSelectedPost] = useState<Post>();
+    const [selectedIdea, setSelectedIdea] = useState<Post>();
     const [viewDetail, setViewDetail] = useState<boolean>(false);
 
     const fetchPosts = async () => {
@@ -23,17 +23,17 @@ const PostsPage = () => {
     }
     const selectPost = (post: Post) => {
         setViewDetail(true);
-        setSelectedPost(post);
+        setSelectedIdea(post);
     }
     const router = useRouter();
     const handleCreatePost = () => {
-        router.push("/posts/create");
+        router.push("/ideas/create");
     }
     useEffect(() => {
         fetchPosts();
     }, []);
     useEffect(() => {
-    }, [selectedPost]);
+    }, [selectedIdea]);
     return (
         <>
             <main className='min-h-96 w-4/5 mx-auto'>
@@ -55,7 +55,7 @@ const PostsPage = () => {
                         </ul>
                     </li>
                     <li className="w-9/12 p-6">
-                        {viewDetail && selectedPost && (<PostDetail key={selectedPost.id} post={selectedPost} />)}
+                        {viewDetail && selectedIdea && (<IdeaDetail key={selectedIdea.id} idea={selectedIdea} />)}
                     </li>
                 </ul>
             </main>

@@ -1,18 +1,18 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import  PostRepository from '@/interface-adapters/http-post-repository';
-import DeletePostUseCase from '@/application-business-rules/post/delete-post-usecase';
+import  IdeaRepository from '@/interface-adapters/http-idea-repository';
+import DeleteIdeaUseCase from '@/application-business-rules/idea/delete-idea-usecase';
 
 const DeleteAction = async (postId: number): Promise<{status: number, title: string}> => {
     const cookieStore = cookies();
-    const postRepository = new PostRepository();
-    const deletePostUseCase = new DeletePostUseCase(postRepository);
+    const ideaRepository = new IdeaRepository();
+    const deleteIdeaUseCase = new DeleteIdeaUseCase(ideaRepository);
     const jwt = (await cookieStore).get('ignidea_bearer');
     let result = {status: 500, title: ""}
     
     if (jwt) {
-        result = await deletePostUseCase.execute(jwt.value, postId);
+        result = await deleteIdeaUseCase.execute(jwt.value, postId);
     }
     if (result.status === 204) {
         return {status: result.status, title: result.title }

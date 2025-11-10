@@ -1,10 +1,10 @@
-import type { PostRepository } from '@/enterprise-business-rules/repositories/post-repository';
+import type { IdeaRepository } from '@/enterprise-business-rules/repositories/idea-repository';
 
-class DeletePostUseCase {
-    constructor(private postRepo: PostRepository){}
+class DeleteIdeaUseCase {
+    constructor(private ideaRepo: IdeaRepository){}
 
     async execute(jwt: string, postId: number): Promise<{status: number; title: string}> {
-        const response = await this.postRepo.deletePost(jwt, postId);
+        const response = await this.ideaRepo.deleteIdea(jwt, postId);
         if (response) {
             return {status: response.status, title: response.data.title}
         } else {
@@ -14,4 +14,4 @@ class DeletePostUseCase {
     }
 }
 
-export default DeletePostUseCase;
+export default DeleteIdeaUseCase;

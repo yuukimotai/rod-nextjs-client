@@ -6,8 +6,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '../../ui/button';
-import CreateAction from '@/frameworks-drivers/posts/create-action';
-const PostsPage = () => {
+import CreateAction from '@/frameworks-drivers/ideas/create-action';
+const IdeasPage = () => {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [isPublic, setIsPublic] = useState<boolean>(false);
@@ -25,7 +25,7 @@ const PostsPage = () => {
         const result = await CreateAction(title, content, isPublic);
         if (result.status === 201) {
             alert('投稿を作成しました');
-            redirect("/posts");
+            redirect("/ideas");
         }
     }
 
@@ -35,7 +35,7 @@ const PostsPage = () => {
                 <form className="space-y-3" onSubmit={handleCreate}>
                     <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
                         <h1 className='mb-3 text-2xl'>
-                            投稿作成
+                            アイデア作成
                         </h1>
                         <div className="w-full">
                             <div className="mt-4">
@@ -98,4 +98,4 @@ const PostsPage = () => {
     );
 }
 
-export default PostsPage;
+export default IdeasPage;
