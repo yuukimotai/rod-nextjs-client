@@ -4,6 +4,7 @@ import { useRouter, redirect } from 'next/navigation';
 
 import FetchSharedAction from '@/frameworks-drivers/shared/ideas/fetch-shared-action';
 import Idea from '@/enterprise-business-rules/entities/idea';
+import Link from 'next/link';
 
 const IdeasPage = () => {
     const [ideas, setIdeas] = useState<Idea[]>([]);
@@ -42,6 +43,13 @@ const IdeasPage = () => {
                         <li key={idea.id} className='p-0.5 border border-cyan-300 rounded mb-2 flex justify-between items-center'>
                             <h3 className='p-0.5 text-center'>{idea.title}</h3>
                             <button type="button" onClick={()=> selectIdea(idea)} className='p-0.5 text-right border border-cyan-300'>詳細</button>
+                            <Link
+                                href={{
+                                    pathname: '/comments/create', // Replace with path of your page component
+                                    query: { idea: JSON.stringify(idea)}
+                                }}
+                                passHref
+                            >詳細</Link>
                         </li>
                     ))}
                 </ul>

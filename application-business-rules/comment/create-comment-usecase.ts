@@ -1,9 +1,11 @@
-import type { CommentRepostitory } from '../../enterprise-business-rules/repositories/comment-repository';
-class CreateCommentUseCase {
-    constructor(private commentRepo: CommentRepostitory){}
+import Idea from '@/enterprise-business-rules/entities/idea';
+import type { CommentRepository } from '@/enterprise-business-rules/repositories/comment-repository';
 
-    async execute(jwt: string, title: string, content: string, priority_emoji: string): Promise<{status: number; title: string}> {
-        const response = await this.commentRepo.createComment(jwt, title, content, priority_emoji);
+class CreateCommentUseCase {
+    constructor(private commentRepo: CommentRepository){}
+
+    async execute(jwt: string, idea: Idea, title: string, content: string, priority_emoji: string): Promise<{status: number; title: string}> {
+        const response = await this.commentRepo.CreateComment(jwt, idea, title, content, priority_emoji);
         if (response) {
             return {status: response.status, title: response.data.title}
         } else {

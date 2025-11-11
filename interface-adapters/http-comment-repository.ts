@@ -3,9 +3,10 @@ import type { CommentRepository } from '../enterprise-business-rules/repositorie
 import type { AxiosResponse } from "axios";
 
 import httpClient from '../frameworks-drivers/http-client';
+import Idea from '@/enterprise-business-rules/entities/idea';
 
 class HttpCommentRepository implements CommentRepository {
-    async createComment(jwt: string, title: string, content: string, priority_emoji: string): Promise<AxiosResponse | undefined> {
+    async CreateComment(jwt: string,idea: Idea, title: string, content: string, priority_emoji: string): Promise<AxiosResponse | undefined> {
         try {
             return await httpClient.post('/comments', { title, content, priority_emoji },
                                                     { 
@@ -16,14 +17,14 @@ class HttpCommentRepository implements CommentRepository {
             console.error(`${error}: サーバーに接続できませんでした`);
         }     
     }
-    async showComments(jwt: string): Promise<AxiosResponse | undefined> {
+    async ShowComments(jwt: string): Promise<AxiosResponse | undefined> {
         try {
             return await httpClient.get('/comments', {headers: {"Authorization": `Bearer ${jwt}`}});
         } catch(error) {
             console.error(`${error}: サーバーに接続できませんでした`);
         }
     }
-    async updateComment(jwt: string, commentId: number, title: string, content: string, priority_emoji: string) {
+    async UpdateComment(jwt: string, commentId: number, title: string, content: string, priority_emoji: string) {
         try {
             return await httpClient.put(`/comments/${commentId}`, { title: title, content: content, priority_emoji: priority_emoji },
                                                     { headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`}});
@@ -31,7 +32,7 @@ class HttpCommentRepository implements CommentRepository {
             console.error(`${error}: サーバーに接続できませんでした`);
         }
     }
-    async deleteComment(jwt: string, commentId: number) {
+    async DeleteComment(jwt: string, commentId: number) {
         try {
             return await httpClient.delete(`/comments/${commentId}`, { headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`}});
         } catch(error) {

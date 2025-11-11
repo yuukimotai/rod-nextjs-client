@@ -1,11 +1,11 @@
 import type { AxiosResponse } from "axios";
-import type { CommentRepostitory } from '../../enterprise-business-rules/repositories/comment-repository';
+import type { CommentRepository } from '@/enterprise-business-rules/repositories/comment-repository';
 
 class ShowCommentsUseCase {
-    constructor(private commentRepo: CommentRepostitory){}
+    constructor(private commentRepo: CommentRepository){}
 
     async execute(jwt: string): Promise<AxiosResponse | undefined> {
-        const response = await this.commentRepo.showComments(jwt);
+        const response = await this.commentRepo.ShowComments(jwt);
         if (response) {
             return response;
         } else {
