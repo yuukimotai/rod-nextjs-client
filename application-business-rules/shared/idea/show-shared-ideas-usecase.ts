@@ -1,11 +1,11 @@
 import type { AxiosResponse } from 'axios';
 import type { IdeaRepository } from '@/enterprise-business-rules/repositories/idea-repository';
 
-class ShowIdeasUseCase {
+class ShowSharedIdeasUseCase {
     constructor(private ideaRepo: IdeaRepository){}
 
     async execute(jwt: string): Promise<AxiosResponse | undefined> {
-        const response = await this.ideaRepo.ShowIdeas(jwt);
+        const response = await this.ideaRepo.ShowSharedIdeas(jwt);
         if (response) {
             return response;
         } else {
@@ -14,4 +14,4 @@ class ShowIdeasUseCase {
     }
 }
 
-export default ShowIdeasUseCase;
+export default ShowSharedIdeasUseCase;

@@ -4,7 +4,7 @@ class DeleteIdeaUseCase {
     constructor(private ideaRepo: IdeaRepository){}
 
     async execute(jwt: string, postId: number): Promise<{status: number; title: string}> {
-        const response = await this.ideaRepo.deleteIdea(jwt, postId);
+        const response = await this.ideaRepo.DeleteIdea(jwt, postId);
         if (response) {
             return {status: response.status, title: response.data.title}
         } else {

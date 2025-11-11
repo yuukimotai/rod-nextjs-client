@@ -2,20 +2,20 @@
 
 import {AxiosError, AxiosResponse} from 'axios';
 import { cookies } from 'next/headers';
-import Post from '@/enterprise-business-rules/entities/idea'
-import  IdeaRepository from '@/interface-adapters/http-idea-repository';
-import ShowIdeasUseCase from '@/application-business-rules/idea/show-ideas-usecase';
+import Idea from '@/enterprise-business-rules/entities/idea'
+import IdeaRepository from '@/interface-adapters/http-idea-repository';
+import ShowSharedIdeasUseCase from '@/application-business-rules/shared/idea/show-shared-ideas-usecase';
 
-const FetchAction = async (): Promise<{status: number, data: Post[]}> => {
+const FetchAction = async (): Promise<{status: number, data: Idea[]}> => {
     const cookieStore = cookies();
     const ideaRepository = new IdeaRepository();
-    const showIdeasUseCase = new ShowIdeasUseCase(ideaRepository);
+    const showSharedIdeasUseCase = new ShowSharedIdeasUseCase(ideaRepository);
     const jwt = (await cookieStore).get('ignidea_bearer');
     let result: AxiosResponse | undefined;
-    let ideas: Post[];
+    let ideas: Idea[];
     
     if (jwt) {
-        result = await showIdeasUseCase.execute(jwt.value);
+        result = await showSharedIdeasUseCase.execute(jwt.value);
     }
     if (result) {
         ideas = result?.data;
