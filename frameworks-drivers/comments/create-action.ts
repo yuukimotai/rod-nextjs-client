@@ -5,7 +5,7 @@ import  CommentRepository from '@/interface-adapters/http-comment-repository';
 import CreateCommentUseCase from '@/application-business-rules/comment/create-comment-usecase';
 import Idea from '@/enterprise-business-rules/entities/idea';
 
-const CreateAction = async (idea: Idea, title: string, content: string): Promise<{status: number, title: string}> => {
+const CreateAction = async (idea_id: number, title: string, content: string): Promise<{status: number, title: string}> => {
     const cookieStore = cookies();
     const commentRepository = new CommentRepository();
     const createCommentUseCase = new CreateCommentUseCase(commentRepository);
@@ -13,7 +13,7 @@ const CreateAction = async (idea: Idea, title: string, content: string): Promise
     let result = {status: 500, title: ""}
     
     if (jwt) {
-        result = await createCommentUseCase.execute(jwt.value, idea, title, content, "👍");
+        result = await createCommentUseCase.execute(jwt.value,idea_id, title, content, "👍");
     }
     if (result.status === 201) {
         return {status: result.status, title: result.title }

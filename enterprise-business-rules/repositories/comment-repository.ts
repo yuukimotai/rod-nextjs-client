@@ -1,9 +1,8 @@
 import type { AxiosResponse } from "axios";
-import Idea from "@/enterprise-business-rules/entities/idea";
 
 export interface CommentRepository {
-    CreateComment(jwt: string, idea: Idea, title: string, content: string, priority_emoji: string): Promise<AxiosResponse | undefined>;
+    CreateComment(jwt: string, ideaId: number, title: string, content: string, priorityEmoji: string): Promise<AxiosResponse | undefined>;
     ShowComments(jwt: string): Promise<AxiosResponse | undefined>;
-    UpdateComment(jwt: string, postId: number, title: string, content:string, priority_emoji: string): Promise<AxiosResponse | undefined>;
-    DeleteComment(jwt: string, postId: number): Promise<AxiosResponse | undefined>
+    UpdateComment(jwt: string, ideaId: number, title: string, content:string, priorityEmoji: string): Promise<AxiosResponse | undefined>;
+    DeleteComment(jwt: string, ideaId: number): Promise<AxiosResponse | undefined>
 }

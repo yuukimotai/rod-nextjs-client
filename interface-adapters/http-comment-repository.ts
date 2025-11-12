@@ -6,9 +6,9 @@ import httpClient from '../frameworks-drivers/http-client';
 import Idea from '@/enterprise-business-rules/entities/idea';
 
 class HttpCommentRepository implements CommentRepository {
-    async CreateComment(jwt: string,idea: Idea, title: string, content: string, priority_emoji: string): Promise<AxiosResponse | undefined> {
+    async CreateComment(jwt: string, idea_id: number, title: string, content: string, priority_emoji: string): Promise<AxiosResponse | undefined> {
         try {
-            return await httpClient.post('/comments', { title, content, priority_emoji },
+            return await httpClient.post('/comments', { idea_id, title, content, priority_emoji },
                                                     { 
                                                         headers: {"Content-Type": "application/json", Authorization: `Bearer ${jwt}`}
                                                     }

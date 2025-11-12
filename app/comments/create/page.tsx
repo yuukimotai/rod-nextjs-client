@@ -1,15 +1,23 @@
 'use client'
 import React, { useState } from 'react';
-import { redirect } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
 import {
     PencilIcon
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '../../ui/button';
 import CreateAction from '@/frameworks-drivers/comments/create-action';
-import Idea from '@/enterprise-business-rules/entities/idea';
 
-const CommentPage = (idea: Idea) => {
+interface Props {
+  params: {
+    idea_id: string;
+  };
+}
+
+const CommentPage = (props: Props) => {
+    const params = useSearchParams();
+    const idea_id = params.get('idea_id');
+    const idea_num = idea_id ? parseInt(idea_id) : 0;
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const inputTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +28,7 @@ const CommentPage = (idea: Idea) => {
     }
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); 
-        const result = await CreateAction(idea, title, content);
+        const result = await CreateAction(idea_num, title, content);
         if (result.status === 201) {
             alert('コメントしました');
             redirect("/ideas");

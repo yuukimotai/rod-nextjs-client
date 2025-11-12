@@ -4,13 +4,13 @@ import type { CommentRepository } from '@/enterprise-business-rules/repositories
 class CreateCommentUseCase {
     constructor(private commentRepo: CommentRepository){}
 
-    async execute(jwt: string, idea: Idea, title: string, content: string, priority_emoji: string): Promise<{status: number; title: string}> {
-        const response = await this.commentRepo.CreateComment(jwt, idea, title, content, priority_emoji);
+    async execute(jwt: string,idea_id: number, title: string, content: string, priority_emoji: string): Promise<{status: number; title: string}> {
+        const response = await this.commentRepo.CreateComment(jwt,idea_id, title, content, priority_emoji);
         if (response) {
             return {status: response.status, title: response.data.title}
         } else {
             console.error("レスポンスが取得できませんでした");
-            return {status: 500, title: "投稿作成失敗"}
+            return {status: 500, title: "コメント作成失敗"}
         }
     }
 }

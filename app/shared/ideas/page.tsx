@@ -42,11 +42,11 @@ const IdeasPage = () => {
                     {ideas.map((idea) => (
                         <li key={idea.id} className='p-0.5 border border-cyan-300 rounded mb-2 flex justify-between items-center'>
                             <h3 className='p-0.5 text-center'>{idea.title}</h3>
-                            <button type="button" onClick={()=> selectIdea(idea)} className='p-0.5 text-right border border-cyan-300'>詳細</button>
+                            <h3 className='p-0.5 text-center'>{idea.content}</h3>
                             <Link
                                 href={{
-                                    pathname: '/comments/create', // Replace with path of your page component
-                                    query: { idea: JSON.stringify(idea)}
+                                    pathname: '/shared/ideas/detail',
+                                    query: { idea_id: idea.id }
                                 }}
                                 passHref
                             >詳細</Link>

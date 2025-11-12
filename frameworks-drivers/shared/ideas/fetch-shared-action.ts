@@ -6,7 +6,7 @@ import Idea from '@/enterprise-business-rules/entities/idea'
 import IdeaRepository from '@/interface-adapters/http-idea-repository';
 import ShowSharedIdeasUseCase from '@/application-business-rules/shared/idea/show-shared-ideas-usecase';
 
-const FetchAction = async (): Promise<{status: number, data: Idea[]}> => {
+const FetchSharedAction = async (): Promise<{status: number, data: Idea[]}> => {
     const cookieStore = cookies();
     const ideaRepository = new IdeaRepository();
     const showSharedIdeasUseCase = new ShowSharedIdeasUseCase(ideaRepository);
@@ -26,4 +26,4 @@ const FetchAction = async (): Promise<{status: number, data: Idea[]}> => {
     }
 }
 
-export default FetchAction;
+export default FetchSharedAction;
