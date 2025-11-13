@@ -1,10 +1,10 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useRouter, redirect } from 'next/navigation';
+import Link from 'next/link';
 
 import FetchSharedAction from '@/frameworks-drivers/shared/ideas/fetch-shared-action';
 import Idea from '@/enterprise-business-rules/entities/idea';
-import Link from 'next/link';
 
 const IdeasPage = () => {
     const [ideas, setIdeas] = useState<Idea[]>([]);
@@ -24,10 +24,6 @@ const IdeasPage = () => {
     const selectIdea = (idea: Idea) => {
         setViewDetail(true);
         setSelectedIdea(idea);
-    }
-    const router = useRouter();
-    const handleCreateIdea = () => {
-        router.push("/ideas/create");
     }
     useEffect(() => {
         fetchIdeas();

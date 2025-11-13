@@ -3,19 +3,19 @@
 import {AxiosError, AxiosResponse} from 'axios';
 import { cookies } from 'next/headers';
 import Comment from '@/enterprise-business-rules/entities/comment'
-import  CommentRepository from '@/interface-adapters/http-comment-repository';
-import ShowCommentsUseCase from '@/application-business-rules/comment/show-comments-usecase';
+import  MyCommentRepository from '@/interface-adapters/http-mycomment-repository';
+import ShowMyCommentsUseCase from '@/application-business-rules/mycomment/show-mycomments-usecase';
 
-const FetchAction = async (idea_id: number | undefined): Promise<{status: number, data: Comment[]}> => {
+const FetchAction = async (): Promise<{status: number, data: Comment[]}> => {
     const cookieStore = cookies();
-    const commentRepository = new CommentRepository();
-    const showCommentsUseCase = new ShowCommentsUseCase(commentRepository);
+    const myCommentRepository = new MyCommentRepository();
+    const showMyCommentsUseCase = new ShowMyCommentsUseCase(myCommentRepository);
     const jwt = (await cookieStore).get('ignidea_bearer');
     let result: AxiosResponse | undefined;
     let comments: Comment[];
     
     if (jwt) {
-        result = await showCommentsUseCase.execute(jwt.value, idea_id ?? 0);
+        result = await showMyCommentsUseCase.execute(jwt.value);
     }
     if (result) {
         comments = result?.data;

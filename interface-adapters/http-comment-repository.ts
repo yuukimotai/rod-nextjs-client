@@ -17,9 +17,10 @@ class HttpCommentRepository implements CommentRepository {
             console.error(`${error}: サーバーに接続できませんでした`);
         }     
     }
-    async ShowComments(jwt: string): Promise<AxiosResponse | undefined> {
+    async ShowComments(jwt: string, idea_id: number): Promise<AxiosResponse | undefined> {
         try {
-            return await httpClient.get('/comments', {headers: {"Authorization": `Bearer ${jwt}`}});
+            console.log(`idea_id in http-repo: ${idea_id}`);
+            return await httpClient.get('/comments', {headers: {"Authorization": `Bearer ${jwt}`}, params: { idea_id: idea_id }});
         } catch(error) {
             console.error(`${error}: サーバーに接続できませんでした`);
         }

@@ -4,8 +4,8 @@ import type { CommentRepository } from '@/enterprise-business-rules/repositories
 class ShowCommentsUseCase {
     constructor(private commentRepo: CommentRepository){}
 
-    async execute(jwt: string): Promise<AxiosResponse | undefined> {
-        const response = await this.commentRepo.ShowComments(jwt);
+    async execute(jwt: string, idea_id: number): Promise<AxiosResponse | undefined> {
+        const response = await this.commentRepo.ShowComments(jwt, idea_id);
         if (response) {
             return response;
         } else {

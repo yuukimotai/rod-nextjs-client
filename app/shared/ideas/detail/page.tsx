@@ -11,13 +11,11 @@ import Link from 'next/link';
 const IdeaDetail = () => {
     const [idea, setIdea] = useState<Idea>();
     const [comments, setComments] = useState<Comment[]>([]);
-    const [viewDetail, setViewDetail] = useState<boolean>(false);
 
     const fetchIdea = async () => {
         const result = await FetchSharedAction();
 
         if (result.status === 200) {
-            console.log(result.data);
             setIdea(result.data[0] as Idea);
         }
         if (result?.status !==200) {
@@ -26,7 +24,8 @@ const IdeaDetail = () => {
         }
     }
     const fetchComments = async () => {
-        const result = await FetchCommentsAction();
+        const idea_id = idea?.id ? idea.id : -1;
+        const result = await FetchCommentsAction(idea_id);
         if (result.status === 200) {
             setComments(result.data as Comment[]);
         }
@@ -37,8 +36,12 @@ const IdeaDetail = () => {
 
     useEffect(() => {
         fetchIdea();
-        fetchComments();
     }, []);
+    useEffect(() => {
+        if (idea && idea.id && idea.id !== -1){
+            fetchComments();
+        }
+    }, [idea?.id]);
 
     return (
         <>
