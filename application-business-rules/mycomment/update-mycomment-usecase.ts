@@ -1,7 +1,7 @@
 import type { AxiosResponse } from "axios";
 import type { MyCommentRepository } from '@/enterprise-business-rules/repositories/mycomment-repository';
 
-class UpdateMyCommentsUseCase {
+class UpdateMyCommentUseCase {
     constructor(private commentRepo: MyCommentRepository){}
 
     async execute(jwt: string, commentId: number, content: string, priority_emoji: string): Promise<AxiosResponse | undefined> {
@@ -14,4 +14,4 @@ class UpdateMyCommentsUseCase {
     }
 }
 
-export default UpdateMyCommentsUseCase;
+export default UpdateMyCommentUseCase;

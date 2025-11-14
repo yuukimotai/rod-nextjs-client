@@ -5,11 +5,11 @@ import Comment from "@/enterprise-business-rules/entities/comment";
 import DeleteAction from '@/frameworks-drivers/mycomment/delete-action';
 
 interface Props {
-    comment: Comment;
+    comment: Comment | undefined;
 }
 
 const DeleteMyCommentButton = ({comment}: Props) => {
-    const commentId = comment.id ? comment.id : -1;
+    const commentId = comment?.id ? comment?.id : -1;
     let result = {status: 500, title: ""}
     const handleDelete = async () => {
         if (commentId === -1) {
@@ -18,7 +18,7 @@ const DeleteMyCommentButton = ({comment}: Props) => {
         }
         result = await DeleteAction(commentId);
         if (result.status === 204) {
-            alert(`Comment ID ${comment.id} 削除しました`);
+            alert(`Comment ID ${commentId} 削除しました`);
             location.reload();
         }
     }

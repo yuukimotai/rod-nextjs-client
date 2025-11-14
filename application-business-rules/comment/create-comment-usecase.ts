@@ -4,8 +4,8 @@ import type { CommentRepository } from '@/enterprise-business-rules/repositories
 class CreateCommentUseCase {
     constructor(private commentRepo: CommentRepository){}
 
-    async execute(jwt: string,idea_id: number, title: string, content: string, priority_emoji: string): Promise<{status: number; title: string}> {
-        const response = await this.commentRepo.CreateComment(jwt,idea_id, title, content, priority_emoji);
+    async execute(jwt: string,idea_id: number, content: string, priority_emoji: string): Promise<{status: number; title: string}> {
+        const response = await this.commentRepo.CreateComment(jwt,idea_id, content, priority_emoji);
         if (response) {
             return {status: response.status, title: response.data.title}
         } else {

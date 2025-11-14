@@ -8,16 +8,16 @@ const DeleteAction = async (postId: number): Promise<{status: number, title: str
     const cookieStore = cookies();
     const myCommentRepository = new MyCommentRepository();
     const deleteIdeaUseCase = new DeleteMyCommentUseCase(myCommentRepository);
-    const jwt = (await cookieStore).get('ignidea_bearer');
-    let result = {status: 500, title: ""}
+    const jwt = (await cookieStore).get('ignidea_bearer')?.value || '';
     
     if (jwt) {
-        result = await deleteIdeaUseCase.execute(jwt.value, postId);
     }
-    if (result.status === 204) {
-        return {status: result.status, title: result.title }
+    const result = await deleteIdeaUseCase.execute(jwt, postId);
+
+    if (result?.status === 204) {
+        return {status: result.status, title: '削除しました' }
     } else {
-        return { status: 500, title: "更新に失敗しました" };
+        return { status: 500, title: "削除に失敗しました" };
     }
 }
 

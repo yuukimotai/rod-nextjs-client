@@ -18,20 +18,17 @@ const CommentPage = (props: Props) => {
     const params = useSearchParams();
     const idea_id = params.get('idea_id');
     const idea_num = idea_id ? parseInt(idea_id) : 0;
-    const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
-    const inputTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.target.value);
-    }
+
     const inputContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     }
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); 
-        const result = await CreateAction(idea_num, title, content);
+        const result = await CreateAction(idea_num, content);
         if (result.status === 201) {
             alert('コメントしました');
-            redirect("/ideas");
+            redirect("/mycomments");
         }
     }
 
@@ -44,27 +41,6 @@ const CommentPage = (props: Props) => {
                             コメント作成
                         </h1>
                         <div className="w-full">
-                            <div className="mt-4">
-                                <label
-                                    className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-                                    htmlFor="title">
-                                    タイトル
-                                </label>
-                                <div className="relative">
-                                    <input
-                                    className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                                    id="title"
-                                    type="text"
-                                    name="title"
-                                    placeholder="タイトルを入力"
-                                    required
-                                    minLength={3}
-                                    onChange={inputTitleChange}
-                                    value={title}
-                                    />
-                                    <PencilIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-                                </div>
-                            </div>
                             <div className="mt-4">
                                 <label
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"

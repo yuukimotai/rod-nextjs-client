@@ -16,6 +16,13 @@ class HttpIdeaRepository implements IdeaRepository {
             console.error(`${error}: サーバーに接続できませんでした`);
         }     
     }
+    async ShowIdea(jwt: string, ideaId: number): Promise<AxiosResponse | undefined> {
+        try {
+            return await httpClient.get(`/ideas/${ideaId}`, {headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`}});
+        } catch(error) {
+            console.error(`${error}: サーバーに接続できませんでした`);
+        }
+    }
     async ShowIdeas(jwt: string): Promise<AxiosResponse | undefined> {
         try {
             return await httpClient.get('/ideas', {headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`}});

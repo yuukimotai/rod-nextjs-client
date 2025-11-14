@@ -6,14 +6,14 @@ import Comment from "@/enterprise-business-rules/entities/comment";
 import UpdateAction from '@/frameworks-drivers/mycomment/update-action';
 
 interface Props {
-    comment: Comment;
+    comment: Comment | undefined;
 }
 
 const UpdateMyCommentButton = ({comment}: Props) => {
     const handleUpdate = async () => {
         console.log(comment)
-        const commentId = comment.id ? comment.id : -1;
-        const content = comment.content ? comment.content : "";
+        const commentId = comment?.id ? comment.id : -1;
+        const content = comment?.content ? comment.content : "";
         
         if (commentId === -1) {
             alert("comment ID が無効です");
@@ -25,7 +25,7 @@ const UpdateMyCommentButton = ({comment}: Props) => {
         }
         const result = await UpdateAction(commentId, content);
         if (result.status === 200) {
-            alert(`Post ${comment.id} を更新しました`);
+            alert(`comment ${comment?.id} を更新しました`);
             location.reload();
         }
     }

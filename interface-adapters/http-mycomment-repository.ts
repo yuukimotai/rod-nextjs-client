@@ -15,7 +15,7 @@ class HttpMyCommentRepository implements MyCommentRepository {
     }
     async UpdateMyComment(jwt: string, commentId: number, content: string, priority_emoji: string) {
         try {
-            return await httpClient.put(`/my_comments/${commentId}`, { content: content, priority_emoji: priority_emoji },
+            return await httpClient.put(`/my_comments/${commentId}`, { content: content, emotions: priority_emoji },
                                                     { headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`}});
         } catch(error) {
             console.error(`${error}: サーバーに接続できませんでした`);

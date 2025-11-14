@@ -17,15 +17,12 @@ const MyCommentsPage = () => {
         }
         if (result?.status !==200) {
             alert("投稿の読み込みに失敗しました。ログインしてください");
-            //redirect('/auth/login');
+            redirect('/auth/login');
         }
     }
     useEffect(() => {
         fetchMyComments();
     }, []);
-    useEffect(() => {
-        console.log("selectedComment changed:", selectedComment);
-    }, [selectedComment]);
 
     return (
         <>
@@ -38,16 +35,18 @@ const MyCommentsPage = () => {
                                 {myComments.map((comment) => (
                                     <li key={comment.id} className='p-0.5 border border-cyan-300 rounded mb-2 flex justify-between items-center'>
                                         <h3 className='p-0.5 text-center'>{comment.content}</h3>
-                                        <button className='bg-cyan-300 p-1 rounded' onClick={() => setSelectedComment(comment)}>詳細</button>
+                                        <button className='border border-cyan-300 p-1 rounded' onClick={() => setSelectedComment(comment)}>詳細</button>
                                     </li>
                                 ))}
                             </ul>
                         </li>
                     </ul>
                 </div>
-                <div className='w-1/2'>
-                    <MyCommentDetail comment={selectedComment}/>
-                </div>
+                { selectedComment &&
+                    <div className='w-1/2'>
+                        <MyCommentDetail comment={selectedComment}/>
+                    </div>
+                }
             </main>
         </>
     );
